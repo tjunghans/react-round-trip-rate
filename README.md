@@ -1,11 +1,12 @@
-# React-List
+# React-Round-Trip-Rate
 
 [![SemVer]](http://semver.org)
-[![License]](https://github.com/tjunghans/react-list/blob/master/LICENCE)
+[![License]](https://github.com/tjunghans/react-round-trip-rate/blob/master/LICENCE)
 
-A react component that renders an array of objects (items) using the give component (itemComponent).
+A react component that renders a button that, if clicked repeatedly changes
+state according to `steps`(default 3, for example for min, normal and max).
 
-[Demo](http://tangiblej.neocities.org/react-list-example.html)
+[Demo](http://tangiblej.neocities.org/react-round-trip-rate-example.html)
 
 
 ## Install
@@ -13,7 +14,7 @@ A react component that renders an array of objects (items) using the give compon
 Install as node dependency:
 
 ```
-npm install react-simple-list --save
+npm install react-round-trip-rate --save
 ```
 
 
@@ -38,47 +39,13 @@ npm start & npm run watch
 var React = require('react');
 var list = require('react-simple-list');
 
-var items = [
-  {id: 1, firstname: 'Mike', lastname: 'November'},
-  {id: 2, firstname: 'India', lastname: 'Juliet'},
-  {id: 3, firstname: 'Alpha', lastname: 'Bravo'},
-];
-
-var itemComponent = React.createClass({
-  propTypes: {
-    href: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired
-  },
-  render: function () {
-    return (
-      React.DOM.a({ href: this.props.href }, this.props.text)
-    );
-  }
-});
-
-function itemFilter(item) {
-	return {
-		href: '#' + item.id,
-		text: item.firstname + ' ' + item.lastname
-	};
-}
-
-React.render(React.createElement(list, {
-	items: items,
-	itemFilter: itemFilter,
-	itemComponent: itemComponent,
-	cssClass: 'list'
-}), document.querySelector('#content'));
-
+TODO
 ```
 
 
 ## Properties
 
-- `items`: an array of items, where items can be an arbitrary object
-- `itemFilter`: a function that is called with each item and used to map the item to the properties of itemComponent
-- `itemComponent`: a react class that is used to display an item
-
+TODO
 
 ## License
 
