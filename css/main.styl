@@ -1,6 +1,9 @@
 .rating {
+  $color = #000;
+  background-color: #fff;
+  border-color: $color;
+  color: $color;
   border: solid 3px;
-  color: #fff;
   font-size: 18px;
   padding: 5px;
   border-radius: 3px;
@@ -9,29 +12,24 @@
   transition: background-color 0.25s ease;
 }
 
-.rating-0 {
-  $color = #000;
-  background-color: #fff;
-  border-color: $color;
-  color: $color;
-}
-
 .rating-1 {
-  $color = #88cc88;
+  $color = rgba(102, 102, 102, 0.1);
   background-color: $color;
   border-color: $color;
+  color: #000;
 }
 
 .rating-2 {
-  $color = #2d882d;
+  $color = rgba(102, 102, 102, 0.5);
   background-color: $color;
   border-color: $color;
 }
 
 .rating-3 {
-  $color = #004400;
+  $color = rgba(102, 102, 102, 1);
   background-color: $color;
   border-color: $color;
+  color: #fff;
 }
 
 //-----------------------------
@@ -41,5 +39,20 @@
   padding-left: 0;
   li {
     display: inline-block;
+  }
+}
+
+.indicator {
+  text-align: left;
+  .bar {
+    color: #ccc;
+    display: inline-block;
+    margin: 0 5px 0 0;
+    line-height: 1;
+    font-size: 12px;
+    transition: color 0.25s ease;
+  }
+  span.active {
+    color: #19c1e8;
   }
 }

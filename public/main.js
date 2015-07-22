@@ -1,22 +1,18 @@
 'use strict';
 
-var Hub = require('hubjs').Hub;
 var React = require('react');
 var roundTripRate = require('../');
 
 var buttons = React.createClass({
   render: function () {
-    var list = [];
-    this.props.skills.forEach(function (skill, i) {
-      var item = React.DOM.li({ key: 'key' + i },
+    var list = this.props.skills.map(function (skill, i) {
+      return React.DOM.li({ key: 'key' + i },
         React.createElement(roundTripRate, {
-          steps: 4,
+          steps: 3,
           label: skill,
           cssClass: 'rating'
         }));
-      list.push(item);
     });
-
     return (React.DOM.ul({ className: 'ratings' }, list));
   }
 });

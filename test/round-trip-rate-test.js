@@ -1,59 +1,35 @@
-/*globals describe, it, beforeEach, afterEach */
+/*globals describe, it, beforeEach, afterEach, Event */
 /*jshint maxstatements:false */
 'use strict';
 
 var React = require('react/addons');
+var TestUtils = React.addons.TestUtils;
 var assert = require('assert');
-var List = require('../lib/list');
+var roundTripRate = require('../');
 
 function $(selector, context) {
   context = context || document;
   return context.querySelectorAll(selector);
 }
 
-// Fixture
-var dummyComponent = React.createClass({
-  propTypes: {
-    text: React.PropTypes.string.isRequired,
-    cssClass: React.PropTypes.string
-  },
-  render: function () {
-    return (
-      React.DOM.span({className: this.props.cssClass}, this.props.text)
-    );
+function prepare(config) {
+  if (config.steps === undefined) {
+    config.steps = 3;
   }
-});
-
-function prepareParams(params) {
-  if (!params.items) {
-    params.items = ['a', 'b', 'c'];
+  if (config.label === undefined) {
+    config.label = 'Java';
   }
-
-  if (!params.itemComponent) {
-    params.itemComponent = React.createClass({
-      render: function () {
-        return (React.DOM.span(null, this.props.text));
-      }
-    });
+  if (config.cssClass === undefined) {
+    config.cssClass = 'rating';
   }
-
-  if (!params.itemFilter) {
-    params.itemFilter = function (item) {
-      return { text: item};
-    };
-  }
-
-  return params;
+  return config;
 }
 
-describe('component', function(){
-
+describe('component', function () {
   var div;
-  var comp;
 
-  function render(params) {
-    comp = React.render(React.createElement(List,
-      prepareParams(params)), div);
+  function render(config) {
+    React.render(React.createElement(roundTripRate, prepare(config)), div);
   }
 
   beforeEach(function () {
@@ -63,41 +39,46 @@ describe('component', function(){
   afterEach(function () {
     if (div) {
       React.unmountComponentAtNode(div);
-      comp = null;
     }
   });
 
-  it('renders list', function () {
-    render({items: ['foo']});
+  it('renders button', function () {
+    render({});
 
-    assert.equal($('li', div).length, 1);
+    assert.equal($('button.rating', div).length, 1);
   });
 
-  it('renders list with css class', function () {
-    render({ cssClass: 'foobarbaz'});
+  it('renders indicator', function () {
+    render({ steps: 5 });
 
-    assert.equal($('ul.foobarbaz', div).length, 1);
+    assert.equal($('.indicator .bar', div).length, 5);
   });
 
-  it('renders container with item object array', function(){
-    render({
-      items: [
-        {fullName: 'Max Muster'},
-        {fullName: 'Joe Soap'},
-        {fullName: 'Canned Heat'}
-      ],
-      itemFilter: function (item) {
-        return {
-          text: item.fullName,
-          cssClass: 'full-name'
-        };
-      },
-      itemComponent: dummyComponent
-    });
+  it('activates indicator bars', function () {
+    var steps = 5;
+    render({ steps: steps });
+    var button = $('button.rating', div)[0];
+    var i;
 
+    for (i = 0; i < steps; i++) {
+      TestUtils.SimulateNative.click(button);
 
-    assert.strictEqual($('.full-name', div).length, 3);
-    assert.strictEqual($('span.full-name', div)[0].textContent, 'Max Muster');
+      assert.equal($('.indicator .active', div).length, i + 1);
+    }
+  });
+
+  it('resets button indicator after maximum', function () {
+    render({ steps: 3 });
+    var button = $('button.rating', div)[0];
+    TestUtils.SimulateNative.click(button);
+    TestUtils.SimulateNative.click(button);
+    TestUtils.SimulateNative.click(button);
+
+    assert.equal($('.indicator .active', div).length, 3);
+
+    TestUtils.SimulateNative.click(button);
+
+    assert.equal($('.indicator .active', div).length, 0);
   });
 
 });

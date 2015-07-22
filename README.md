@@ -29,7 +29,9 @@ npm start & npm run watch
 
 - `npm run build` - build production css and js
 - `npm run watch` - compile css and js
+- `npm run watch:test` - run tests on change
 - `npm start` - start static dev server
+- `npm test` - run lint and tests
 
 
 ## Usage
@@ -37,15 +39,21 @@ npm start & npm run watch
 ```javascript
 
 var React = require('react');
-var list = require('react-simple-list');
+var roundTripRate = require('react-round-trip-rate');
 
-TODO
+React.createElement(roundTripRate, {
+  steps: 3, // steps as in good, very good, excellent
+  label: 'Java skill', // the name of what is being rated. In this case Java skill
+  cssClass: 'rating'
+}));
 ```
-
 
 ## Properties
 
-TODO
+- `label`: button label
+- `steps`: number of rating steps
+- `cssClass`: css class to apply to the button
+
 
 ## License
 
