@@ -2,7 +2,7 @@
   "name": "react-round-trip-rate",
   "description": "Renders a button that allows ratings from 0 to n",
   "author": "Thomas Junghans <thomas.junghans@gmail.com>",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "./lib/round-trip-rate",
   "scripts": {
     "test:browser": "mochify",
