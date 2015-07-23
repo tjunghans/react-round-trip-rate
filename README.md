@@ -2,6 +2,7 @@
 
 [![SemVer]](http://semver.org)
 [![License]](https://github.com/tjunghans/react-round-trip-rate/blob/master/LICENCE)
+[![Build Status](https://travis-ci.org/tjunghans/react-round-trip-rate.svg?branch=master)](https://travis-ci.org/tjunghans/react-round-trip-rate)
 
 A react component that renders a button that, if clicked repeatedly changes
 state according to `steps`(default 3, for example for min, normal and max).
