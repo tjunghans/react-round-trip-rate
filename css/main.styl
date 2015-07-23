@@ -1,6 +1,7 @@
 .rating {
   $color = #000;
   background-color: #fff;
+  background-clip: padding-box;
   border-color: $color;
   color: $color;
   border: solid 3px;
@@ -9,14 +10,16 @@
   border-radius: 3px;
   display: inline-block;
   margin: 0 5px 5px 0;
-  transition: background-color 0.25s ease;
+  .indicator {
+    margin-top: -5px;
+    margin-bottom: 5px;
+  }
 }
 
 .rating-1 {
   $color = rgba(102, 102, 102, 0.1);
   background-color: $color;
   border-color: $color;
-  color: #000;
 }
 
 .rating-2 {
