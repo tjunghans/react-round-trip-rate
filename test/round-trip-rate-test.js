@@ -5,6 +5,7 @@
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 var assert = require('assert');
+var sinon = require('sinon');
 var roundTripRate = require('../');
 
 function $(selector, context) {
@@ -52,6 +53,17 @@ describe('component', function () {
     render({ steps: 5 });
 
     assert.equal($('.indicator .bar', div).length, 5);
+  });
+
+  it('fires onChange', function () {
+    var spy = sinon.spy();
+    render({ onChange: spy, label: 'JavaScript' });
+    var button = $('button.rating', div)[0];
+
+    TestUtils.SimulateNative.click(button);
+
+    sinon.assert.calledOnce(spy);
+    sinon.assert.calledWith(spy, 'JavaScript', 1);
   });
 
   it('activates indicator bars', function () {
